@@ -1,0 +1,27 @@
+# crowdsec-plugin.yaml — Traefik dynamic middleware for CrowdSec HTTP bouncer.
+# Deploy to: /data/coolify/proxy/dynamic/crowdsec-plugin.yaml
+#
+# ⚠️  MANUAL STEP: Replace YOUR_BOUNCER_API_KEY with the key from:
+#     sudo cscli bouncers add traefik-bouncer
+
+http:
+  middlewares:
+    crowdsec-bouncer:
+      plugin:
+        bouncer:
+          enabled: true
+          logLevel: INFO
+          updateIntervalSeconds: 15
+          updateMaxFailure: 0
+          defaultDecisionSeconds: 60
+          httpTimeoutSeconds: 10
+          crowdsecMode: stream
+          crowdsecLapiScheme: http
+          crowdsecLapiHost: 127.0.0.1:8095
+          crowdsecLapiKey: YOUR_BOUNCER_API_KEY   # ⚠️ replace this
+          crowdsecLapiTLSInsecureVerify: false
+          forwardedHeadersTrustedIPs:
+            - 127.0.0.1/32
+          clientTrustedIPs:
+            - 127.0.0.1/32
+          forwardedHeadersCustomName: X-Forwarded-For
