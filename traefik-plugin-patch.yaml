@@ -1,0 +1,16 @@
+# traefik-plugin-patch.yaml — Snippet to paste into Coolify's Traefik static config
+# via the Coolify UI under: Servers → <your server> → Proxy → Dynamic Configuration
+#
+# ⚠️  MANUAL STEP: Open the Coolify UI, navigate to the Traefik configuration
+#     editor, and merge this block into the root of your static config YAML.
+#     Coolify will restart Traefik automatically after saving.
+#
+# This loads the crowdsec-bouncer-traefik-plugin as an experimental plugin.
+# Check https://github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin/releases
+# for the latest stable version and update v1.3.5 if a newer version is available.
+
+experimental:
+  plugins:
+    bouncer:
+      moduleName: github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+      version: v1.3.5
