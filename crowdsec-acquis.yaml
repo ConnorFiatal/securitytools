@@ -1,0 +1,24 @@
+# crowdsec-acquis.yaml — Log acquisition sources for CrowdSec.
+# Deploy to: /etc/crowdsec/acquis.d/custom-acquis.yaml
+# (or replace /etc/crowdsec/acquis.yaml if no other entries exist)
+
+---
+# SSH / system authentication logs
+filenames:
+  - /var/log/auth.log
+labels:
+  type: syslog
+
+---
+# General system syslog
+filenames:
+  - /var/log/syslog
+labels:
+  type: syslog
+
+---
+# Traefik access logs
+filenames:
+  - /var/log/traefik/*.log
+labels:
+  type: traefik
