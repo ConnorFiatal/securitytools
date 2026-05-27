@@ -1,0 +1,38 @@
+<!-- wazuh-ossec-additions.xml
+     Append the contents of this file to /var/ossec/etc/ossec.conf
+     (inside the existing <ossec_config> root element).
+     Then restart the agent: sudo systemctl restart wazuh-agent
+-->
+
+  <!-- ============================================================
+       Docker listener wodle — monitors Docker container events
+       ============================================================ -->
+  <wodle name="docker-listener">
+    <interval>10m</interval>
+    <attempts>5</attempts>
+    <run_on_start>yes</run_on_start>
+    <disabled>no</disabled>
+  </wodle>
+
+  <!-- ============================================================
+       Docker container JSON logs (all running containers)
+       ============================================================ -->
+  <localfile>
+    <log_format>json</log_format>
+    <location>/var/lib/docker/containers/*/*-json.log</location>
+  </localfile>
+
+  <!-- ============================================================
+       Syscheck — file integrity monitoring
+       ============================================================ -->
+  <syscheck>
+    <!-- Monitor Coolify data directory in real time -->
+    <directories check_all="yes" realtime="yes" report_changes="yes">
+      /data/coolify
+    </directories>
+
+    <!-- Monitor CrowdSec config directory in real time -->
+    <directories check_all="yes" realtime="yes" report_changes="yes">
+      /etc/crowdsec
+    </directories>
+  </syscheck>
